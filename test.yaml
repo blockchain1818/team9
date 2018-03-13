@@ -28,3 +28,16 @@ spec:
         image: mongo
         ports:
         - containerPort: 27017
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: ordercapture
+  labels:
+    app: ordercapture
+spec:
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
