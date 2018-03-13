@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orderfulfill
+  labels:
+    app: orderfulfill
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orderfulfill
+  template:
+    metadata:
+      labels:
+        app: orderfulfill
+    spec:
+      containers:
+      - name: orderfulfill
+        image: shanepeckham/fulfillorderack:v6
+        ports:
+        - containerPort: 8080
+        env:
+          - name: TEAMNAME
+            value: "Team9"
+          - name: MONGOHOST
+            value: "mongodb://mongo-mongodb.default"

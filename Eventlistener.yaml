@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eventlistener
+  labels:
+    app: eventlistener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventlistener
+  template:
+    metadata:
+      labels:
+        app: eventlistener
+    spec:
+      containers:
+      - name: eventlistener
+        image: shanepeckham/rabbitmqlistenerack:v6
+        ports:
+        - containerPort: 8080
+        env:
+          - name: RABBITMQHOST
+            value: "amqp://guest:guest@rabbitmq:5672"
+          - name: PROCESSENDPOINT
+            value: "http://orderfulfill/v1/order/"
+          - name: TEAMNAME
+            value: "team9"

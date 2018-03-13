@@ -24,6 +24,10 @@ spec:
             value: "Team9"
           - name: MONGOHOST
             value: "mongodb://mongo-mongodb.default"
+          - name: RABBITMQHOST
+            value: "amqp://guest:guest@rabbitmq:5672"
+          - name: PARTITIONKEY
+            value: "0"
 ---
 kind: Service
 apiVersion: v1
