@@ -17,3 +17,13 @@ spec:
     image: shanepeckham/captureorderack
     ports:
     - containerPort: 80
+    env:
+      - name: TEAMNAME
+        value: "Team9"
+      - name: MONGOHOST
+        value: "mongodb://mongo.team9"
+  - name: mongo
+    image: mongo
+    ports:
+    - port: 27017
+      targetPort: 27017
