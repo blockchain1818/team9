@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ordercapture
+  labels:
+    app: ordercapture
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ordercapture
+  template:
+    metadata:
+      labels:
+        app: ordercapture
+    spec:
+      containers:
+      - name: ordercapture
+        image: shanepeckham/captureorderack:v6
+        ports:
+        - containerPort: 80
+        env:
+          - name: TEAMNAME
+            value: "Team9"
+          - name: MONGOHOST
+            value: "mongodb://mongo"
+      - name: mongo
+        image: mongo
+        ports:
+        - containerPort: 27017
