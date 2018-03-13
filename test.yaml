@@ -18,16 +18,12 @@ spec:
       - name: ordercapture
         image: shanepeckham/captureorderack:v6
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         env:
           - name: TEAMNAME
             value: "Team9"
           - name: MONGOHOST
-            value: "mongodb://mongo"
-      - name: mongo
-        image: mongo
-        ports:
-        - containerPort: 27017
+            value: "mongodb://mongo-mongodb.default"
 ---
 kind: Service
 apiVersion: v1
@@ -36,8 +32,10 @@ metadata:
   labels:
     app: ordercapture
 spec:
+  selector:
+    app: ordercapture
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 80
+    port: 8080
+    targetPort: 8080
   type: LoadBalancer
