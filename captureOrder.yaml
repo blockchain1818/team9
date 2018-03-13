@@ -1,7 +1,7 @@
 # The example Pod utilizing the profile loaded by the sample daemon.
 
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: orderCapture
   # To capture order
