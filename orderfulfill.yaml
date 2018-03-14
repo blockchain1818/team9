@@ -23,7 +23,14 @@ spec:
           - name: TEAMNAME
             value: "Team9"
           - name: MONGOHOST
-            value: "mongodb://mongo-mongodb.default"    
+            value: "mongodb://mongo-mongodb.default"  
+        volumeMounts:
+        - name: azurefile
+          mountPath: /orders
+      volumes:
+      - name: azurefile
+        persistentVolumeClaim: 
+          claimName: azurefile  
 ---
 kind: Service
 apiVersion: v1
@@ -40,29 +47,13 @@ spec:
     targetPort: 8080
   type: NodePort
 ---
-kind: Pod
-apiVersion: v1
-metadata:
-  name: orderfulfill-storage
-spec:
-  containers:
-  - name: orderfulfill
-    image: shanepeckham/fulfillorderack:v6
-    volumeMounts:
-    - name: azurefile
-      mountPath: /orders
-  volumes:
-  - name: azurefile
-    persistentVolumeClaim: 
-      claimName: azurefile
----
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: azurefile
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 1Gi
